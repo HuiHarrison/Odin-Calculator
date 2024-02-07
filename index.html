@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/8d274f34cb.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -12,9 +15,9 @@
 
         <div class="buttons">
             <div class="row top-row">
-                <button class="operation" type="button">AC</button>
-                <button class="operation" type="button">+/-</button>
-                <button class="operation" type="button">%</button>
+                <button class="functions" type="button">AC</button>
+                <button class="functions" type="button">+/-</button>
+                <button class="functions" type="button">%</button>
                 <button class="operation" type="button">/</button>
             </div>
 
@@ -40,11 +43,15 @@
             </div>
 
             <div class="row">
-                <button class="numbers" type="button">0</button>
+                <button id="zero" class="numbers" type="button">0</button>
                 <button class="numbers" type="button">.</button>
                 <button class="operation" type="button">=</button>
             </div>
         </div>
+    </div>
+    <div class="footer">
+        Copyright © <script>document.write(new Date().getFullYear());</script> HuiHarrison 
+        <a href="https://github.com/HuiHarrison"><i class="fa-brands fa-github fa-shake"></i></a>
     </div>
 </body>
 </html>
