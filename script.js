@@ -10,14 +10,16 @@ let selectedOperatorFlag = false;
 let num1 = null;
 let num2 = null;
 
-
+// Unhightlight operators and clear screen
 function selectNextNum() {
-    operators.forEach(operator => {
-        operator.removeAttribute("id");
-        selectedOperatorFlag = false;
-        num1 = screen.innerText;
-        screen.innerText = "";
-    });
+    if (selectedOperatorFlag) {
+        operators.forEach(operator => {
+            operator.removeAttribute("id");
+            selectedOperatorFlag = false;
+            num1 = screen.innerText;
+            screen.innerText = "";
+        });
+    }
 }
 
 function exceedMaxLength(innerText) {
@@ -25,50 +27,47 @@ function exceedMaxLength(innerText) {
 }
 
 function addToScreen(num){
-    if (!exceedMaxLength(screen.innerText)) {
-        screen.innerText += num;
+    // Check if "." is already on screen and not exceed max length
+    if ((num === "." && screen.innerText.includes(".")) || exceedMaxLength(screen.innerText)) {
+        return;
     }
+
+    screen.innerText += num;
 }
 
 // Event listeners for number buttons to add to screen
 for (const number of numbers) {
     let numToDisplay = number.innerText;
     number.addEventListener("click", e => {
+        selectNextNum();
         addToScreen(numToDisplay);
-        if (selectedOperatorFlag) {
-            selectNextNum();
-        }
     });
 }
 
 // AC Button for clearing screen
 acBtn.addEventListener("click", e => {
+    selectNextNum();
     screen.innerText = "";
     selectedOperator = null;
     selectedOperatorFlag = false;
-    if (selectedOperatorFlag) {
-        selectNextNum();
-    }
+    num1 = null;
+    num2 = null;
 });
 
 
 // +/- Button for changing sign
 changeSignBtn.addEventListener("click", e=> {
+    selectNextNum();
     screen.innerText *= -1;
-    if (selectedOperatorFlag) {
-        selectNextNum();
-    }
 })
 
 
 // % Button for dividing the number by 100
 percentBtn.addEventListener("click", e => {
+    selectNextNum();
     let answer = (screen.innerText / 100).toString();
     if (!exceedMaxLength(answer)) {
         screen.innerText = answer;
-        if (selectedOperatorFlag) {
-            selectNextNum();
-        }
     }
 })
 
@@ -76,9 +75,7 @@ percentBtn.addEventListener("click", e => {
 for (const operator of operators) {
     let selectedOperation = operator;
     operator.addEventListener("click", e => {
-        if (selectedOperatorFlag) {
-            selectNextNum();
-        }
+        selectNextNum();
         selectedOperation.setAttribute("id", "selected-operation");
         selectedOperatorFlag = true;
         selectedOperator = selectedOperation.innerText;
