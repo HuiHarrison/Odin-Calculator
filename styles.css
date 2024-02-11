@@ -81,11 +81,14 @@ button:hover {
     color: black;
 }
 
-.operation {
+.operation,
+.equal {
     background-color: #ff9f0c;
 }
 
-.operation:hover {
+.operation:hover,
+.equal:hover,
+#selected-operation {
     background-color: #fefcf6;
     color: #ff9f0c;
 }
