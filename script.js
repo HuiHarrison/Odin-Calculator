@@ -4,6 +4,7 @@ const acBtn = document.querySelector("#ac");
 const changeSignBtn = document.querySelector("#changeSignBtn");
 const percentBtn = document.querySelector("#percentBtn");
 const operators = document.querySelectorAll(".operation");
+const equalBtn = document.querySelector(".equal");
 
 let selectedOperator = null;
 let selectedOperatorFlag = false;
@@ -16,9 +17,26 @@ function selectNextNum() {
         operators.forEach(operator => {
             operator.removeAttribute("id");
             selectedOperatorFlag = false;
-            num1 = screen.innerText;
+            if (num1 === null) {
+                num1 = screen.innerText;
+            }
+            
+            console.log(num1);
             screen.innerText = "";
         });
+    }
+}
+
+function calculate() {
+    switch (selectedOperator) {
+        case "+":
+            return +num1 + +num2;
+        case "-":
+            return num1 - num2;
+        case "*":
+            return num1 * num2;
+        case "/":
+            return num1 / num2;
     }
 }
 
@@ -41,6 +59,7 @@ for (const number of numbers) {
     number.addEventListener("click", e => {
         selectNextNum();
         addToScreen(numToDisplay);
+        console.log(num1);
     });
 }
 
@@ -81,3 +100,12 @@ for (const operator of operators) {
         selectedOperator = selectedOperation.innerText;
     });
 }
+
+// = Button for calculating answer
+equalBtn.addEventListener("click", () => {
+    num2 = screen.innerText;
+    screen.innerText = calculate();
+    console.log(num1);
+    console.log(selectedOperator);
+    console.log(num2);
+})
