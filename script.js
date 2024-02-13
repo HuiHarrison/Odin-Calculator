@@ -28,16 +28,25 @@ function selectNextNum() {
 }
 
 function calculate() {
+    let result;
     switch (selectedOperator) {
         case "+":
-            return +num1 + +num2;
+            result = +num1 + +num2;
+            break;
         case "-":
-            return num1 - num2;
+            result = num1 - num2;
+            break;
         case "*":
-            return num1 * num2;
+            result = num1 * num2;
+            break;
         case "/":
-            return num1 / num2;
+            result = num1 / num2;
+            break;
     }
+
+    // Round off the result to 10 digits
+    result = parseFloat(result.toFixed(10));
+    return result;
 }
 
 function exceedMaxLength(innerText) {
@@ -85,9 +94,7 @@ changeSignBtn.addEventListener("click", e=> {
 percentBtn.addEventListener("click", e => {
     selectNextNum();
     let answer = (screen.innerText / 100).toString();
-    if (!exceedMaxLength(answer)) {
-        screen.innerText = answer;
-    }
+    screen.innerText = parseFloat(answer).toFixed(10);
 })
 
 // Highlight operation button if clicked
