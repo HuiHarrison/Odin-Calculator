@@ -21,7 +21,6 @@ function selectNextNum() {
                 num1 = screen.innerText;
             }
             
-            console.log(num1);
             screen.innerText = "";
         });
     }
@@ -68,7 +67,6 @@ for (const number of numbers) {
     number.addEventListener("click", e => {
         selectNextNum();
         addToScreen(numToDisplay);
-        console.log(num1);
     });
 }
 
@@ -102,6 +100,15 @@ for (const operator of operators) {
     let selectedOperation = operator;
     operator.addEventListener("click", e => {
         selectNextNum();
+        
+        // For continuous calculation
+        // Calculate before selecting operation
+        if (num1 !== null) {
+            num2 = screen.innerText;
+            screen.innerText = calculate();
+        }
+        num1 = screen.innerText;
+
         selectedOperation.setAttribute("id", "selected-operation");
         selectedOperatorFlag = true;
         selectedOperator = selectedOperation.innerText;
@@ -112,7 +119,7 @@ for (const operator of operators) {
 equalBtn.addEventListener("click", () => {
     num2 = screen.innerText;
     screen.innerText = calculate();
-    console.log(num1);
-    console.log(selectedOperator);
-    console.log(num2);
+    num1 = null;
+    num2 = null;
+    selectedOperator = null;
 })
